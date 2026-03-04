@@ -166,7 +166,10 @@ declare -A history_type=(
     ["compare"]="$(git log "${tag_commit}".."${commit}" --format=%B)" \
 )
 log=${history_type[${branch_history}]}
+stop_commands_token=$(cat /proc/sys/kernel/random/uuid)
+echo "::stop-commands::${stop_commands_token}"
 printf "History:\n---\n%s\n---\n" "$log"
+echo "::${stop_commands_token}::"
 
 if [ -z "$tagPrefix" ]
 then
