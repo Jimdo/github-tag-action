@@ -211,8 +211,18 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: '0'
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24.21.0"
+
+      # setup-node ships the npm bundled with Node 24 (11.x). npm 12 is the first
+      # version that blocks dependency install scripts, so pin it before installing.
       - name: Install Dependencies
-        run: npm install -g semver
+        run: |
+          npm install -g --ignore-scripts npm@12.1.0
+          npm --version
+          npm install -g semver
 
       - name: Setup Bats
         id: setup-bats
