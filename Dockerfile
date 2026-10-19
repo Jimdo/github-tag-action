@@ -7,7 +7,6 @@ LABEL "maintainer"="Nick Sjostrom"
 # install scripts, so pin it before installing semver.
 RUN apk --no-cache add bash git git-lfs curl jq \
   && npm install -g --ignore-scripts npm@12.1.0 \
-  && npm --version \
   && npm install -g semver
 
 COPY entrypoint.sh /entrypoint.sh
